@@ -16,6 +16,8 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'https://github.com/Yggdroot/indentLine.git'
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
+"Vim-Terraform
+Plug 'https://github.com/hashivim/vim-terraform.git'
 call plug#end()
 " You can revert the settings after the call like so:
 "   filetype indent off   " Disable file-type-specific indentation
@@ -24,8 +26,8 @@ call plug#end()
 map <F2> :NERDTreeToggle<CR>
 set nu
 colors desert
-
-au BufNewFile,BufRead *.py
+highlight BadWhitespace ctermbg=red guibg=red
+au FileType python
     \set tabstop=4
     \set softtabstop=4
     \set shiftwidth=4
@@ -33,25 +35,39 @@ au BufNewFile,BufRead *.py
     \set expandtab
     \set autoindent
     \set fileformat=unix
+    \match BadWhitespace /^\t\+/
+    \match BadWhitespace /\s\+$/
 
-au BufNewFile,BufRead *.js, *.html, *.css
+
+au FileType html
+    \set tabstop=4
+    \set softtabstop=4
+    \set shiftwidth=4
+    \set expandtab
+    \set autoindent
+
+au FileType javascript
+    \set tabstop=4
+    \set softtabstop=4
+    \set shiftwidth=4
+    \set expandtab
+    \set autoindent
+
+au FileType css
     \set tabstop=2
     \set softtabstop=2
     \set shiftwidth=2
     \set expandtab
     \set autoindent
 
-
-au BufNewFile,BufRead *.yaml, *.yml
+au FileType yaml
     \set tabstop=2
     \set softtabstop=2
     \set shiftwidth=2
     \set expandtab
     \set autoindent
     \set textwidth=79
+    \match BadWhitespace /^\t\+/
+    \match BadWhitespace /\s\+$/
 
 set encoding=utf-8
-
-highlight BadWhitespace ctermbg=red guibg=red
-au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.yaml,*.yml match BadWhitespace /\s\+$/
